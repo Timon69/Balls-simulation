@@ -1,1 +1,1 @@
-# Balls-simulation
+Simple simulation of balls on pygame.
