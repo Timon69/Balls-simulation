@@ -1,5 +1,5 @@
 """
-This is free program. Press space to pause game, press left mouse button to create another particle
+Press space to pause game, press left mouse button to create another particle
 """
 
 import random as rd
@@ -19,7 +19,6 @@ clock = pg.time.Clock()
 # SETTINGS
 count_particles = 1000
 radius = 10    # If Random_radius is False
-mass = 10   # Need for physics
 random_radius = [5, 30]     # Interval of random values != 0
 speed_x = [-5, 6]     # Interval of random values
 speed_y = [-5, 6]     # Interval of random values
@@ -27,7 +26,6 @@ speed_mouse = [1, 1]    # Speed mouse_particles
 
 Random_colors = "Rainbow"   # False, True or "Rainbow". IF False, then choose selected_color below
 Random_radius = False
-Physics = False  # Physics in simulation
 Spawn_particles = True  # Auto spawn
 
 # COLORS
@@ -75,87 +73,49 @@ class Particle:
         for particle in mouse_particles_spis:
             pg.draw.ellipse(screen, self.color, particle)
 
-    #def attraction(self):
-    #    for particle in self.particles:
-    #        part = particle[0]
-    #        other_x, other_y = part.x, part.y
-    #        distance_x = other_x - self.x
-    #        distance_y = other_y - self.y
-    #        distance = math.sqrt(distance_x ** 2 + distance_y ** 2)
-
-    #    if planet.sun:
-    #        self.distance_to_sun = distance
-
-    #    force = self.G * self.mass * planet.mass / distance ** 2
-    #    theta = math.atan2(distance_y, distance_x)
-    #    force_x = math.cos(theta) * force
-    #    force_y = math.sin(theta) * force
-    #    return force_x, force_y
-
     def move_particles(self):
-        if not Physics:
-            for particle in self.particles:
-                part = particle[0]
-                part.x += particle[1][0]
-                part.y += particle[1][1]
+        for particle in self.particles:
+            part = particle[0]
+            part.x += particle[1][0]
+            part.y += particle[1][1]
 
-                if part.left <= 0:
-                    particle[1][0] *= -1
-                    part.x += 5
+            if part.left <= 0:
+               particle[1][0] *= -1
+               part.x += 5
 
-                if part.right >= WIDTH:
-                    particle[1][0] *= -1
-                    part.x -= 5
+            if part.right >= WIDTH:
+               particle[1][0] *= -1
+               part.x -= 5
 
-                if part.top <= 0:
-                    particle[1][1] *= -1
-                    part.y += 5
+            if part.top <= 0:
+               particle[1][1] *= -1
+               part.y += 5
 
-                if part.bottom >= HEIGHT:
-                    particle[1][1] *= -1
-                    part.y -= 5
+            if part.bottom >= HEIGHT:
+               particle[1][1] *= -1
+               part.y -= 5
 
-            for particle in mouse_particles_spis:
-                particle.x += self.vx
-                particle.y += self.vy
+        for particle in mouse_particles_spis:
+            particle.x += self.vx
+            particle.y += self.vy
 
-                if particle.left <= 0:
-                    self.vx *= -1
-                    particle.x += 5
+            if particle.left <= 0:
+                self.vx *= -1
+                particle.x += 5
 
-                if particle.right >= WIDTH:
-                    self.vx *= -1
-                    particle.x -= 5
+            if particle.right >= WIDTH:
+                self.vx *= -1
+                particle.x -= 5
 
-                if particle.top <= 0:
-                    self.vy *= -1
-                    particle.y += 5
+            if particle.top <= 0:
+                self.vy *= -1
+                particle.y += 5
 
-                if particle.bottom >= HEIGHT:
-                    self.vy *= -1
-                    particle.y -= 5
+            if particle.bottom >= HEIGHT:
+                self.vy *= -1
+                particle.y -= 5
 
-        else:
-            for particle in self.particles:
-                part = particle[0]
-                if self == part:
-                    if part.left <= 0:
-                        particle[1][0] *= -1
-                        part.x += 5
-
-                    if part.right >= WIDTH:
-                        particle[1][0] *= -1
-                        part.x -= 5
-
-                    if part.top <= 0:
-                        particle[1][1] *= -1
-                        part.y += 5
-
-                    if part.bottom >= HEIGHT:
-                        particle[1][1] *= -1
-                        part.y -= 5
-
-
+     
 def rand_coord(count_particles):
     particles = []
     for particle in range(count_particles):
